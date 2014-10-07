@@ -269,7 +269,7 @@ bool DirectXBase::InitializeAngle(ID3D11Device1* d3dDevice, ID3D11DeviceContext1
     }
 
 
-	display = eglGetDisplay(m_eglWindow);
+	display = eglGetDisplay(m_eglWindow.Get());
 	if(display == EGL_NO_DISPLAY){
 		//ofLogError("ofAppWinRTWindow") << "couldn't get EGL display";
 		return false;
