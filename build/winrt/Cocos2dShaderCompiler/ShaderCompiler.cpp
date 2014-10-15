@@ -142,7 +142,7 @@ bool ShaderCompiler::InitializeAngle(ANGLE_D3D_FEATURE_LEVEL featureLevel)
         return false;
     }
 
-    m_display = eglGetDisplay(m_eglWindow);
+    m_display = eglGetDisplay(m_eglWindow.Get());
     if (m_display == EGL_NO_DISPLAY){
         return false;
     }

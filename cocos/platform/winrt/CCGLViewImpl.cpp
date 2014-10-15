@@ -153,7 +153,8 @@ void WinRTWindow::OnSuspending()
 {
 #if (_MSC_VER >= 1800)
     Microsoft::WRL::ComPtr<IDXGIDevice3> dxgiDevice;
-    Microsoft::WRL::ComPtr<ID3D11Device> device = m_eglWindow->GetAngleD3DDevice();
+    Microsoft::WRL::ComPtr<ID3D11Device> device;
+    m_eglWindow->GetAngleD3DDevice().As(&device);
     HRESULT result = device.As(&dxgiDevice);
     if (SUCCEEDED(result))
     {
