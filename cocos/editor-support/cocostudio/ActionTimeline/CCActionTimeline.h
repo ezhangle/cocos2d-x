@@ -26,11 +26,12 @@ THE SOFTWARE.
 #define __CCTIMELINE_ACTION_H__
 
 #include "CCTimeLine.h"
-#include "renderer/CCRenderer.h"
+#include "cocostudio/CocosStudioExport.h"
+#include "2d/CCAction.h"
 
 NS_TIMELINE_BEGIN
 
-class  ActionTimelineData : public cocos2d::Ref
+class CC_STUDIO_DLL ActionTimelineData : public cocos2d::Ref
 {
 public:
     static ActionTimelineData* create(int actionTag);
@@ -45,7 +46,7 @@ protected:
 };
 
 
-class  ActionTimeline : public cocos2d::Action
+class CC_STUDIO_DLL ActionTimeline : public cocos2d::Action
 {
 public:
     friend class Frame;
@@ -74,6 +75,14 @@ public:
      * @param loop Whether or not the animation need loop. 
      */
     virtual void gotoFrameAndPlay(int startIndex, int endIndex, bool loop);
+
+    /** Goto the specified frame index, and start playing from start index, end at end index.
+     * @param startIndex The animation will play from this index.
+     * @param endIndex The animation will end at this index.
+     * @param currentFrameIndex set current frame index. 
+     * @param loop Whether or not the animation need loop. 
+     */
+    virtual void gotoFrameAndPlay(int startIndex, int endIndex, int currentFrameIndex, bool loop);
 
     /** Goto the specified frame index, and pause at this index.
      * @param startIndex The animation will pause at this index.
@@ -105,6 +114,8 @@ public:
       * or it will play from start frame again. */
     virtual int  getEndFrame() const { return _endFrame; }
 
+    /** Set current frame index, this will cause action plays to this frame. */
+    virtual void setCurrentFrame(int frameIndex);
     /** Get current frame. */
     virtual int  getCurrentFrame() const { return _currentFrame; }
 
@@ -117,6 +128,10 @@ public:
     /** Set ActionTimeline's frame event callback function */
     void setFrameEventCallFunc(std::function<void(Frame *)> listener);
     void clearFrameEventCallFunc();
+
+    /** Last frame callback will call when arriving last frame */
+    void setLastFrameCallFunc(std::function<void()> listener);
+    void clearLastFrameCallFunc();
 
     /** Inherit from Action. */
 
@@ -152,6 +167,7 @@ protected:
     bool    _loop;
 
     std::function<void(Frame*)> _frameEventListener;
+    std::function<void()> _lastFrameListener;
 };
 
 NS_TIMELINE_END

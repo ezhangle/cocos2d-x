@@ -57,27 +57,21 @@ WidgetReader/TextReader/TextReader.cpp \
 ActionTimeline/CCNodeReader.cpp \
 ActionTimeline/CCActionTimelineCache.cpp \
 ActionTimeline/CCFrame.cpp \
-ActionTimeline/CCTimeline.cpp \
+ActionTimeline/CCTimeLine.cpp \
 ActionTimeline/CCActionTimeline.cpp \
+ActionTimeline/CSLoader.cpp \
+CSParseBinary.pb.cc 
 
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/.. \
-$(LOCAL_PATH)/../../../external
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../.. \
-$(LOCAL_PATH)/../../../external \
-$(LOCAL_PATH)/.. \
-$(LOCAL_PATH)/../..
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 
-LOCAL_CFLAGS += -Wno-psabi -fexceptions
-LOCAL_EXPORT_CFLAGS += -Wno-psabi
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/.. \
+                    $(LOCAL_PATH)/WidgetReader
 
-LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_ui_static
+LOCAL_CFLAGS += -fexceptions
+
+LOCAL_STATIC_LIBRARIES := cocos_ui_static
+LOCAL_STATIC_LIBRARIES += cocosdenshion_static
+LOCAL_STATIC_LIBRARIES += cocos_protobuf-lite_static
 
 include $(BUILD_STATIC_LIBRARY)
-
-$(call import-module,.)
-$(call import-module,audio/android)
-$(call import-module,ui)
-

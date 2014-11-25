@@ -24,7 +24,6 @@ THE SOFTWARE.
 
 #include "ui/UIListView.h"
 #include "ui/UIHelper.h"
-#include "extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 
 NS_CC_BEGIN
 
@@ -36,13 +35,13 @@ ListView::ListView():
 _model(nullptr),
 _gravity(Gravity::CENTER_VERTICAL),
 _itemsMargin(0.0f),
-_listViewEventListener(nullptr),
-_listViewEventSelector(nullptr),
 _curSelectedIndex(0),
 _refreshViewDirty(true),
+_listViewEventListener(nullptr),
+_listViewEventSelector(nullptr),
 _eventCallback(nullptr)
 {
-    
+    this->setTouchEnabled(true);
 }
 
 ListView::~ListView()
@@ -55,7 +54,7 @@ ListView::~ListView()
 
 ListView* ListView::create()
 {
-    ListView* widget = new ListView();
+    ListView* widget = new (std::nothrow) ListView();
     if (widget && widget->init())
     {
         widget->autorelease();
@@ -149,7 +148,7 @@ void ListView::remedyLayoutParameter(Widget *item)
                 }
                 if (getIndex(item) == 0)
                 {
-                    defaultLp->setMargin(MarginZero);
+                    defaultLp->setMargin(Margin::ZERO);
                 }
                 else
                 {
@@ -161,7 +160,7 @@ void ListView::remedyLayoutParameter(Widget *item)
             {
                 if (getIndex(item) == 0)
                 {
-                    llp->setMargin(MarginZero);
+                    llp->setMargin(Margin::ZERO);
                 }
                 else
                 {
@@ -204,7 +203,7 @@ void ListView::remedyLayoutParameter(Widget *item)
                 }
                 if (getIndex(item) == 0)
                 {
-                    defaultLp->setMargin(MarginZero);
+                    defaultLp->setMargin(Margin::ZERO);
                 }
                 else
                 {
@@ -216,7 +215,7 @@ void ListView::remedyLayoutParameter(Widget *item)
             {
                 if (getIndex(item) == 0)
                 {
-                    llp->setMargin(MarginZero);
+                    llp->setMargin(Margin::ZERO);
                 }
                 else
                 {
@@ -272,21 +271,12 @@ void ListView::insertDefaultItem(ssize_t index)
     _refreshViewDirty = true;
 }
 
+
 void ListView::pushBackCustomItem(Widget* item)
 {
     remedyLayoutParameter(item);
     addChild(item);
     _refreshViewDirty = true;
-}
-    
-void ListView::addChild(cocos2d::Node *child)
-{
-    ListView::addChild(child, child->getZOrder(), child->getTag());
-}
-    
-void ListView::addChild(cocos2d::Node *child, int zOrder)
-{
-    ListView::addChild(child, zOrder, child->getTag());
 }
     
 void ListView::addChild(cocos2d::Node *child, int zOrder, int tag)
@@ -298,7 +288,27 @@ void ListView::addChild(cocos2d::Node *child, int zOrder, int tag)
     {
         _items.pushBack(widget);
     }
+}
+    
+void ListView::addChild(cocos2d::Node *child)
+{
+    ListView::addChild(child, child->getLocalZOrder(), child->getName());
+}
 
+void ListView::addChild(cocos2d::Node *child, int zOrder)
+{
+    ListView::addChild(child, zOrder, child->getName());
+}
+ 
+void ListView::addChild(Node* child, int zOrder, const std::string &name)
+{
+    ScrollView::addChild(child, zOrder, name);
+    
+    Widget* widget = dynamic_cast<Widget*>(child);
+    if (widget)
+    {
+        _items.pushBack(widget);
+    }
 }
     
 void ListView::removeChild(cocos2d::Node *child, bool cleaup)
@@ -462,6 +472,7 @@ void ListView::addEventListener(const ccListViewCallback& callback)
     
 void ListView::selectedItemEvent(TouchEventType event)
 {
+    this->retain();
     switch (event)
     {
         case TouchEventType::BEGAN:
@@ -487,7 +498,7 @@ void ListView::selectedItemEvent(TouchEventType event)
         }
         break;
     }
-
+    this->release();
 }
     
 void ListView::interceptTouchEvent(TouchEventType event, Widget *sender, Touch* touch)
@@ -505,7 +516,9 @@ void ListView::interceptTouchEvent(TouchEventType event, Widget *sender, Touch* 
             }
             parent = dynamic_cast<Widget*>(parent->getParent());
         }
-        selectedItemEvent(event);
+        if (sender->isHighlighted()) {
+            selectedItemEvent(event);
+        }
     }
 }
     
