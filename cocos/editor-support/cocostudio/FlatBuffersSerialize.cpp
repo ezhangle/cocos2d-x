@@ -241,7 +241,10 @@ std::string FlatBuffersSerialize::serializeFlatBuffersWithXMLFile(const std::str
                                                  builder.CreateVector(_texturePngs),
                                                  nodeTree,
                                                  aciton);
-        builder.Finish(csparsebinary);        
+        builder.Finish(csparsebinary);
+        
+        _textures.clear();
+        _texturePngs.clear();
         
         
         std::string outFullPath = FileUtils::getInstance()->fullPathForFilename(flatbuffersFileName);
@@ -918,7 +921,13 @@ Offset<TimeLineTextureFrame> FlatBuffersSerialize::createTimeLineTextureFrame(co
             
             if (attriname == "Path")
             {
-                path = value;
+                std::string inFullpath = FileUtils::getInstance()->fullPathForFilename(value).c_str();
+
+                // xml read
+                if (!FileUtils::getInstance()->isFileExist(inFullpath))
+                    path = "";
+                else
+                    path = value;
             }
             else if (attriname == "Type")
             {
@@ -927,6 +936,17 @@ Offset<TimeLineTextureFrame> FlatBuffersSerialize::createTimeLineTextureFrame(co
             else if (attriname == "Plist")
             {
                 plistFile = value;
+
+                std::string inFullpath = FileUtils::getInstance()->fullPathForFilename(value).c_str();
+
+                // xml read
+                if (!FileUtils::getInstance()->isFileExist(inFullpath))
+                {
+                    path = "";
+                    plistFile = "";
+                }
+                else
+                    plistFile = value;
             }
             
             attribute = attribute->Next();
