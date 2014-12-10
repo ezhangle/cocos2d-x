@@ -127,9 +127,11 @@ Build Requirements
 
 * Mac OS X 10.7+, Xcode 5.1+
 * or Ubuntu 12.10+, CMake 2.6+
-* or Windows 8+, VS 2013+
+* or Windows 7+, VS 2012+
 * Python 2.7.5
 * NDK r9d is required to build Android games
+* Windows Phone/Store 8.0 VS 2012+
+* Windows Phone/Store 8.1 VS 2013 Update 3+
 
 
 Runtime Requirements
@@ -138,7 +140,8 @@ Runtime Requirements
   * Android 2.3+ for Android games
   * Windows Phone 8 and 8.1 for Windows Phone games
   * OS X v10.6+ for Mac games
-  * Windows 7+ or 8+ for Win games
+  * Windows 7+ for Win games
+  * Windows 8+ for WinRT games (Modern Apps)
 
 
 Running Tests
