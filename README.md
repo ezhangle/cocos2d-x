@@ -9,7 +9,7 @@ cocos2d-x
 
 [cocos2d-x][1] is a multi-platform framework for building 2d games, interactive books, demos and other graphical applications.
 It is based on [cocos2d-iphone][2], but instead of using Objective-C, it uses C++.
-It works on iOS, Android, Windows Phone, OS X, Windows, and Linux.
+It works on iOS, Android, Windows Phone, OS X, Windows and Linux.
 
 cocos2d-x is:
 
@@ -83,12 +83,6 @@ Run
 
     $ cocos run -p win32
 
-### Build and run new project for Windows 8.1 and Windows Phone 8.1 ###
-
-    $ cocos new MyGame -p com.bar.foo -l cpp -d projects
-
-With the Cocos2d-x v3.3, you can create Universal App (Two projects at the same time: Windows(Tablet) and Windows Phone 8.1 )
-See more info on How to install and Create games on Windows RT (Windows and Windows Phone 8.1) at http://msopentech.github.io/cocos2d-x/
 
 Main features
 -------------
@@ -127,7 +121,7 @@ Build Requirements
 
 * Mac OS X 10.7+, Xcode 5.1+
 * or Ubuntu 12.10+, CMake 2.6+
-* or Windows 8+, VS 2013+
+* or Windows 7+, VS 2012+
 * Python 2.7.5
 * NDK r9d is required to build Android games
 
@@ -136,9 +130,9 @@ Runtime Requirements
 --------------------
   * iOS 5.0+ for iPhone / iPad games
   * Android 2.3+ for Android games
-  * Windows Phone 8 and 8.1 for Windows Phone games
+  * Windows Phone 8+ for Windows Phone games
   * OS X v10.6+ for Mac games
-  * Windows 7+ or 8+ for Win games
+  * Windows 7+ for Win games
 
 
 Running Tests
