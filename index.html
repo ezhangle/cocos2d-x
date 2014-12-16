@@ -37,7 +37,7 @@ MS Open Tech is contributing to Cocos2d-x, the last contribution and branches ar
 V2.2.5 Universal App
 V3.3   Universal App</p>
 
-<p>*last update Dec 9th 2014</p>
+<p>*last update Dec 16th 2014</p>
 
 <h1>
 <a id="installing-cocos2d-x-on-windows" class="anchor" href="#installing-cocos2d-x-on-windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing Cocos2d-x on Windows</h1>
@@ -73,6 +73,17 @@ To create your first project in v2.2.5:</li>
 <li> create_project.py -project MyGame -package com.foo.bar -language cpp</li>
 <li> open MyGame.sln in cocos2d-x\projects\MyGame\proj-win8.1-universal\ </li>
 </ol>
+
+<p><strong>Warning</strong>:
+December 16th 2014, it appears that a recent Windows Update (KB2976978) breaks the Windows App Certification (WACK) Test for the Windows Store App in the Cocos2d-x v3.3 Universal App. The update causes the Supported API test to fail with a lot of errors. 
+Work Around:</p>
+
+<ul>
+<li>Go to Control Panel – Program and Features </li>
+<li>Click on View Installed Updates </li>
+<li>Uninstall update KB2976978 </li>
+<li>The Windows Store app now passes the Supported API test </li>
+</ul>
 
 <p>We recommend using Visual Studio 2013 Community edition (<a href="http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx">http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx</a>)</p>
 
