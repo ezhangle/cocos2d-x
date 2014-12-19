@@ -52,11 +52,12 @@ V3.3   Universal App</p>
 <li> git checkout v3-stable</li>
 <li> git submodule update --init</li>
 <li> download-deps.py</li>
-<li> setup.py (then restart your console to update settings)
-Create your first project:</li>
-<li> cocos new MyGame -p com.bar.foo -l cpp -d projects</li>
-<li> open MyGame.sln in cocos2d-x\projects\MyGame\proj-win8.1-universal\</li>
+<li> setup.py (then restart your console to update settings)</li>
 </ol>
+
+<p>Create your first project:
+7.  cocos new MyGame -p com.bar.foo -l cpp -d projects
+8.  open MyGame.sln in cocos2d-x\projects\MyGame\proj-win8.1-universal\</p>
 
 <h3>
 <a id="steps-to-get-the-v225-universal-app-version" class="anchor" href="#steps-to-get-the-v225-universal-app-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Steps to get the v2.2.5 Universal App version</h3>
@@ -67,12 +68,13 @@ Create your first project:</li>
 <li> cd cocos2d-x</li>
 <li> git checkout v2-universal</li>
 <li> git submodule update --init</li>
-<li> download-deps.py 
-To create your first project in v2.2.5:</li>
-<li> cd tools\project-creator</li>
-<li> create_project.py -project MyGame -package com.foo.bar -language cpp</li>
-<li> open MyGame.sln in cocos2d-x\projects\MyGame\proj-win8.1-universal\ </li>
+<li> download-deps.py </li>
 </ol>
+
+<p>To create your first project in v2.2.5:
+6.  cd tools\project-creator
+7.  create_project.py -project MyGame -package com.foo.bar -language cpp
+8.  open MyGame.sln in cocos2d-x\projects\MyGame\proj-win8.1-universal\ </p>
 
 <p><strong>Warning</strong>:
 December 16th 2014, it appears that a recent Windows Update (KB2976978) breaks the Windows App Certification (WACK) Test for the Windows Store App in the Cocos2d-x v3.3 Universal App. The update causes the Supported API test to fail with a lot of errors. 
@@ -87,8 +89,8 @@ Work Around:</p>
 
 <p><strong>Tips &amp; Tricks</strong>
 For the v3 the images/sprites folder changed. 
-All your graphical resources have to be in the MyGame\Resources folder.
-These will be copied during the build phase in MyGame\proj.win8.1-universal\Debug\MyGame.Windows\AppX\Assets (for the Windows version) If something wrong happen, just verify that your resources are in this folder (Appx\Assets) if not just copy paste their in it </p>
+All your graphical resources have to be in the <strong>MyGame\Resources</strong> folder.
+These will be copied during the build phase in MyGame\proj.win8.1-universal\Debug\MyGame.Windows\AppX\Assets\Resources (for the Windows version) If something wrong happen, just verify that your resources are in this folder (Appx\Assets\Resources) if not just copy paste their in it </p>
 
 <p>We recommend using Visual Studio 2013 Community edition (<a href="http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx">http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx</a>)</p>
 
