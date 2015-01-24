@@ -23,6 +23,7 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "ui/UILoadingBar.h"
+#include "ui/UIHelper.h"
 #include "ui/UIScale9Sprite.h"
 #include "2d/CCSprite.h"
 
@@ -68,10 +69,18 @@ LoadingBar* LoadingBar::create()
     
 LoadingBar* LoadingBar::create(const std::string &textureName, float percentage)
 {
+    return LoadingBar::create(textureName, TextureResType::LOCAL, percentage);
+}
+    
+LoadingBar* LoadingBar::create(const std::string &textureName,
+                               TextureResType texType,
+                               float percentage)
+{
     LoadingBar* widget = new (std::nothrow) LoadingBar;
-    if (widget && widget->init()) {
+    if (widget && widget->init())
+    {
         widget->autorelease();
-        widget->loadTexture(textureName);
+        widget->loadTexture(textureName,texType);
         widget->setPercent(percentage);
         return widget;
     }
@@ -208,6 +217,7 @@ void LoadingBar::setScale9Enabled(bool enabled)
     }
     setCapInsets(_capInsets);
     setPercent(_percent);
+    _barRendererAdaptDirty = true;
 }
 
 bool LoadingBar::isScale9Enabled()const
@@ -217,12 +227,12 @@ bool LoadingBar::isScale9Enabled()const
     
 void LoadingBar::setCapInsets(const Rect &capInsets)
 {
-    _capInsets = capInsets;
+    _capInsets = ui::Helper::restrictCapInsetRect(capInsets, _barRendererTextureSize);
     if (!_scale9Enabled)
     {
         return;
     }
-    _barRenderer->setCapInsets(capInsets);
+    _barRenderer->setCapInsets(_capInsets);
 }
 
 const Rect& LoadingBar::getCapInsets()const
@@ -325,6 +335,7 @@ void LoadingBar::barRendererScaleChangedWithSize()
         if (_scale9Enabled)
         {
             setScale9Scale();
+            _barRenderer->setScale(1.0f);
         }
         else
         {
